@@ -1,0 +1,1 @@
+# flask-smorest-example-bookmanager
