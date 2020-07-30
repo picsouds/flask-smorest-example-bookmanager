@@ -9,6 +9,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class DefaultConfig:
     """Default configuration"""
     API_VERSION = 0.1
+    API_TITLE = 'API_book_manager'
     OPENAPI_VERSION = '3.0.2'
     OPENAPI_URL_PREFIX = '/'
 
