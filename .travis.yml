@@ -1,13 +1,13 @@
 language: python
 
-matrix:
-  include:
-    - python: 3.5
-    - python: 3.6
-    - python: 3.7
-    - python: 3.8
-    dist: bionic
-    sudo: trueinstall:
+python:
+  - "3.8"
+
+# command to install dependencies
+install:
   - pip install pipenv
-  - pipenv install
+  - pipenv install -e ".[testing]"
+
+# command to run tests
+script:
   - pytest tests/test_api.py::TestApi  # <== This runs in Pipenv (a/k/a virtualenv)
