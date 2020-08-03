@@ -6,6 +6,8 @@
 Flask application example using the awesome [flask-smorest: Flask/Marshmallow-based REST API framework](https://flask-smorest.readthedocs.io/en/latest/)    
 Widely inspired by https://github.com/lafrech/flask-smorest-sqlalchemy-example
 
+![Capture-d-cran-du-2020-08-03-20-28-16.png](https://i.postimg.cc/nrH1SHZP/Capture-d-cran-du-2020-08-03-20-28-16.png)
+
 ## Packages
 
 * flask-smorest 
