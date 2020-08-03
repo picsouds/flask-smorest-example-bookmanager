@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/picsouds/flask-smorest-example-bookmanager.svg?branch=master)](https://travis-ci.com/picsouds/flask-smorest-example-bookmanager)
+[![Coverage Status](https://coveralls.io/repos/github/picsouds/flask-smorest-example-bookmanager/badge.svg)](https://coveralls.io/github/picsouds/flask-smorest-example-bookmanager)
 
 # flask-smorest-example-bookmanager
 
