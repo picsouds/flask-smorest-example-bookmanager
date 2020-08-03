@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/picsouds/flask-smorest-example-bookmanager.svg?branch=master)](https://travis-ci.com/picsouds/flask-smorest-example-bookmanager)
+
 # flask-smorest-example-bookmanager
 
 Flask application example using the awesome [flask-smorest: Flask/Marshmallow-based REST API framework](https://flask-smorest.readthedocs.io/en/latest/)    
