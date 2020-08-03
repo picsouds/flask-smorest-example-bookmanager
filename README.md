@@ -1,6 +1,6 @@
 # flask-smorest-example-bookmanager
 
-Flask application example using then awesome [flask-smorest: Flask/Marshmallow-based REST API framework](https://flask-smorest.readthedocs.io/en/latest/)    
+Flask application example using the awesome [flask-smorest: Flask/Marshmallow-based REST API framework](https://flask-smorest.readthedocs.io/en/latest/)    
 Widely inspired by https://github.com/lafrech/flask-smorest-sqlalchemy-example
 
 ## Packages
