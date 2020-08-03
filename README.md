@@ -38,8 +38,12 @@ $ pipenv run python -m pytest tests/test_api.py::TestApi
 Play with API
 
 * Open http://127.0.0.1:5000/swagger-ui in your favorit browser
-* Get un JWT token /Auth for the protected endpoint 
-* Create a /author with the JWT token 
-* Create a /book with the JWT token with a author id
+* /auth 
+   * Get un JWT token for the protected endpoint
+* /authors a valid JWT token for POST / PUT / DELETE
+   * PUT (need a valid etag in the If-Match HTTP request header)
+   * DELETE (need a valid etag and delete cascade books)  
+* /books with a valid JWT token for POST / PUT / DELETE
+   * PUT (need a valid etag in the If-Match HTTP request header)
 
 Have Fun.
