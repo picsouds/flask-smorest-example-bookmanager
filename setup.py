@@ -42,6 +42,7 @@ setup(
             'pytest==5.4.3',
             'coverage==5.2.1',
             'pylint==2.5.3',
-            'pytest-cov==2.10.0'
+            'pytest-cov==2.10.0',
+            'python-coveralls==2.9.3'
         ]}
 )
