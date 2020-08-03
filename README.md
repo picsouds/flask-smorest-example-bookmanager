@@ -16,7 +16,7 @@ Widely inspired by https://github.com/lafrech/flask-smorest-sqlalchemy-example
 
 ## Database
 
-Sqlite with delete cascade (a user - many book)
+Sqlite with delete cascade (a author - many book)
 
 ## Running locally
 
