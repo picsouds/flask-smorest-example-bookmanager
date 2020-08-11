@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/picsouds/flask-smorest-example-bookmanager.svg?branch=master)](https://travis-ci.com/picsouds/flask-smorest-example-bookmanager)
 [![Coverage Status](https://coveralls.io/repos/github/picsouds/flask-smorest-example-bookmanager/badge.svg)](https://coveralls.io/github/picsouds/flask-smorest-example-bookmanager)
 
-# flask-smorest-example-bookmanager
+# flask-smorest-example
 
 Flask application example using the awesome [flask-smorest: Flask/Marshmallow-based REST API framework](https://flask-smorest.readthedocs.io/en/latest/)    
 Widely inspired by https://github.com/lafrech/flask-smorest-sqlalchemy-example
