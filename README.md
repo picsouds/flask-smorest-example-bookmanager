@@ -12,11 +12,11 @@ Widely inspired by https://github.com/lafrech/flask-smorest-sqlalchemy-example
 
 * flask-smorest 
 * flask-marshmallow / Flask-SQLAlchemy and marshmallow-sqlalchemy.
-* flask-jwt-extended  
+* flask-jwt-extended 
 
 ## Database
 
-Sqlite with delete cascade (a author - many book)
+Sqlite with delete cascade (relation an author - many book)
 
 ## Running locally
 
