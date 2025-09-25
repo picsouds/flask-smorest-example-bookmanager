@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.com/picsouds/flask-smorest-example-bookmanager.svg?branch=master)](https://travis-ci.com/picsouds/flask-smorest-example-bookmanager)
-[![Coverage Status](https://coveralls.io/repos/github/picsouds/flask-smorest-example-bookmanager/badge.svg)](https://coveralls.io/github/picsouds/flask-smorest-example-bookmanager)
+![CI](https://github.com/picsouds/flask-smorest-example-bookmanager/actions/workflows/ci.yml/badge.svg)
 
 # flask-smorest-example
 
@@ -10,9 +9,10 @@ Widely inspired by https://github.com/lafrech/flask-smorest-sqlalchemy-example
 
 ## Packages
 
-* flask-smorest 
-* flask-marshmallow / Flask-SQLAlchemy and marshmallow-sqlalchemy.
-* flask-jwt-extended 
+* Flask 3.1
+* flask-smorest 0.46 with Marshmallow 4
+* Flask-SQLAlchemy 3 + SQLAlchemy 2.0
+* flask-jwt-extended 4.7 
 
 ## Database
 
@@ -20,24 +20,23 @@ Sqlite with delete cascade (relation an author - many book)
 
 ## Running locally
 
-Set up Python environment:
+Set up Python environment with [Poetry](https://python-poetry.org/):
 
 ```shell
-$ pipenv install
+poetry install
+cp .env.example .env  # adjust secrets as needed
 ```
-
-To create a virtual environment you just execute the `$ pipenv shell`.
 
 Run a development server:
 
 ```shell
-$ FLASK RUN
+poetry run flask --app book_manager --debug run
 ```
 
-Runs tests:
+Run the test suite:
 
 ```shell
-$ pipenv run python -m pytest tests/test_api.py::TestApi
+poetry run pytest
 ```
 
 Play with API

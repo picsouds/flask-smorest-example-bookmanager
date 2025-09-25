@@ -1,21 +1,41 @@
+from pathlib import Path
+import sys
+
 import pytest
+from sqlalchemy.pool import StaticPool
+
+sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from book_manager import create_app
+from book_manager.extensions.database import db
 
 
 @pytest.fixture(scope='module')
-def test_client():
-    application = create_app()
-    application.config['TESTING'] = True
+def app():
+    application = create_app(
+        config_overrides={
+            'TESTING': True,
+            'SQLALCHEMY_DATABASE_URI': 'sqlite+pysqlite:///:memory:',
+            'DATABASE_URL': 'sqlite+pysqlite:///:memory:',
+            'SQLALCHEMY_ENGINE_OPTIONS': {
+                'connect_args': {'check_same_thread': False},
+                'poolclass': StaticPool,
+            },
+            'JWT_SECRET_KEY': 'test-secret',
+            'SECRET_KEY': 'test-secret',
+        }
+    )
 
-    # Flask provides a way to test your application by exposing the Werkzeug test Client
-    # and handling the context locals for you.
-    testing_client = application.test_client()
-
-    # Establish an application context before running the tests.
     ctx = application.app_context()
     ctx.push()
 
-    yield testing_client  # this is where the testing happens!
+    yield application
 
+    db.session.remove()
     ctx.pop()
+
+
+@pytest.fixture(scope='module')
+def test_client(app):
+    with app.test_client() as testing_client:
+        yield testing_client

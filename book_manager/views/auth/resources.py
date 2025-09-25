@@ -1,7 +1,6 @@
 """Login resources"""
 from datetime import datetime
 
-from flask import jsonify
 from flask.views import MethodView
 from flask_jwt_extended import create_access_token, decode_token
 
@@ -23,13 +22,15 @@ blp = Blueprint(
 class Auth(MethodView):
 
     @blp.arguments(LoginQueryArgsSchema, location='query')
-    @blp.response(JWTSchema, code=200)
+    @blp.response(200, JWTSchema)
     def post(self, args):
         """Obtenir un JWT Token"""
-        username = args.pop('username', None)
+        username = args.get('user')
         access_token = create_access_token(identity=username)
         pure_decoded = decode_token(access_token)
-        return jsonify(access_token=access_token,
-                       token_type='Bearer',
-                       expires=datetime.fromtimestamp(pure_decoded["exp"]).strftime('%Y-%m-%d %H:%M:%S')), 200
-
+        expires = datetime.fromtimestamp(pure_decoded["exp"]).strftime('%Y-%m-%d %H:%M:%S')
+        return {
+            'access_token': access_token,
+            'token_type': 'Bearer',
+            'expires': expires
+        }

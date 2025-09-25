@@ -1,10 +1,8 @@
 """Relational database"""
 
-from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()  # pylint: disable=invalid-name
-ma = Marshmallow()
+db = SQLAlchemy(session_options={"expire_on_commit": False})
 
 
 def init_app(app):
@@ -13,11 +11,13 @@ def init_app(app):
 
     # Ensure FOREIGN KEY for sqlite3 for cascade delete
     if 'sqlite' in app.config['SQLALCHEMY_DATABASE_URI']:
-        def _fk_pragma_on_connect(dbapi_con, con_record):  # noqa
+
+        def _fk_pragma_on_connect(dbapi_con, _con_record):  # noqa: ANN001
             dbapi_con.execute('pragma foreign_keys=ON')
 
         with app.app_context():
             from sqlalchemy import event
             event.listen(db.engine, 'connect', _fk_pragma_on_connect)
 
-    db.create_all(app=app)
+    with app.app_context():
+        db.create_all()

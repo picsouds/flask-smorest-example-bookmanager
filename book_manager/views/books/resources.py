@@ -1,13 +1,16 @@
 """Books resources"""
 
+from uuid import UUID
+
 from flask.views import MethodView
 from flask_jwt_extended import jwt_required
 from flask_smorest import abort
-from sqlalchemy.exc import SQLAlchemyError, IntegrityError
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+
 from book_manager.extensions.api import Blueprint, SQLCursorPage
 from book_manager.extensions.database import db
 from book_manager.models import Book
-from book_manager.models.schema import BookSchema, BookQueryArgsSchema
+from book_manager.models.schema import BookQueryArgsSchema, BookSchema
 
 blp = Blueprint(
     'Books',
@@ -17,12 +20,20 @@ blp = Blueprint(
 )
 
 
+def _get_book_or_404(item_id: UUID) -> Book:
+    """Return the book or abort with 404."""
+    instance = db.session.get(Book, item_id)
+    if instance is None:
+        abort(404, message=f"Book {item_id} not found")
+    return instance
+
+
 @blp.route('/')
 class Books(MethodView):
 
     @blp.etag
     @blp.arguments(BookQueryArgsSchema, location='query')
-    @blp.response(BookSchema(many=True))
+    @blp.response(200, BookSchema(many=True))
     @blp.paginate(SQLCursorPage)
     def get(self, args):
         """List des livres"""
@@ -30,9 +41,9 @@ class Books(MethodView):
 
     @blp.etag
     @blp.arguments(BookSchema)
-    @blp.response(BookSchema, code=201)
+    @blp.response(201, BookSchema)
     @blp.doc(security=[{"bearerAuth": []}])
-    @jwt_required
+    @jwt_required()
     def post(self, new_item):
         """Ajouter un nouveau livre"""
         item = Book(**new_item)
@@ -54,20 +65,20 @@ class Books(MethodView):
 class BooksById(MethodView):
 
     @blp.etag
-    @blp.response(BookSchema)
+    @blp.response(200, BookSchema)
     def get(self, item_id):
         """Livre par ID"""
-        return Book.query.get_or_404(item_id)
+        return _get_book_or_404(item_id)
 
     @blp.etag
     @blp.arguments(BookSchema)
-    @blp.response(BookSchema)
+    @blp.response(200, BookSchema)
     @blp.doc(parameters=[{'name': 'If-Match', 'in': 'header', 'required': 'true'}])
     @blp.doc(security=[{"bearerAuth": []}])
-    @jwt_required
+    @jwt_required()
     def put(self, new_item, item_id):
         """Modifier un livre existant par ID"""
-        item = Book.query.get_or_404(item_id)
+        item = _get_book_or_404(item_id)
         blp.check_etag(item, BookSchema)
         try:
             BookSchema().update(item, new_item)
@@ -84,13 +95,13 @@ class BooksById(MethodView):
         return item
 
     @blp.etag
-    @blp.response(code=204)
+    @blp.response(204)
     @blp.doc(parameters=[{'name': 'If-Match', 'in': 'header', 'required': 'true'}])
     @blp.doc(security=[{"bearerAuth": []}])
-    @jwt_required
+    @jwt_required()
     def delete(self, item_id):
         """Supprimer un livre par ID"""
-        item = Book.query.get_or_404(item_id)
+        item = _get_book_or_404(item_id)
         blp.check_etag(item, BookSchema)
         db.session.delete(item)
         db.session.commit()

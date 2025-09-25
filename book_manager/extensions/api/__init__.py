@@ -2,7 +2,8 @@
 
 Override base classes here to allow painless customization in the future.
 """
-from flask_smorest import Api as ApiOrig, Blueprint as BlueprintOrig, Page
+from flask_smorest import Api as ApiOrig, Blueprint as BlueprintOrig
+from flask_smorest.pagination import Page
 
 
 class Blueprint(BlueprintOrig):
