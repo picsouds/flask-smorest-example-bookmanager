@@ -5,7 +5,6 @@ from typing import Any, Mapping, Optional, Type
 
 from flask import Flask
 from flask_jwt_extended import JWTManager
-from flask_smorest.exceptions import PreconditionFailed
 
 from book_manager import extensions, views
 from book_manager.default_settings import DefaultConfig
