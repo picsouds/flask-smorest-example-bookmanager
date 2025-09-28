@@ -1,18 +1,18 @@
-[![Build Status](https://travis-ci.com/picsouds/flask-smorest-example-bookmanager.svg?branch=master)](https://travis-ci.com/picsouds/flask-smorest-example-bookmanager)
-[![Coverage Status](https://coveralls.io/repos/github/picsouds/flask-smorest-example-bookmanager/badge.svg)](https://coveralls.io/github/picsouds/flask-smorest-example-bookmanager)
+![CI](https://github.com/picsouds/flask-smorest-example-bookmanager/actions/workflows/ci.yml/badge.svg)
 
 # flask-smorest-example
 
 Flask application example using the awesome [flask-smorest: Flask/Marshmallow-based REST API framework](https://flask-smorest.readthedocs.io/en/latest/)    
 Widely inspired by https://github.com/lafrech/flask-smorest-sqlalchemy-example
 
-![Capture-d-cran-du-2020-08-03-20-28-16.png](https://i.postimg.cc/nrH1SHZP/Capture-d-cran-du-2020-08-03-20-28-16.png)
+[![Capture-d-cran-du-2025-09-28.png](https://i.postimg.cc/DZStyMjL/Capture-d-cran-du-2025-09-28.png)](https://postimg.cc/gXPMgNP2)
 
 ## Packages
 
-* flask-smorest 
-* flask-marshmallow / Flask-SQLAlchemy and marshmallow-sqlalchemy.
-* flask-jwt-extended 
+* Flask 3.1
+* flask-smorest 0.46
+* flask-sqlalchemy 3.1 / sqlalchemy 2.0 / marshmallow-sqlalchemy 1.4
+* flask-jwt-extended 4.7
 
 ## Database
 
@@ -20,31 +20,30 @@ Sqlite with delete cascade (relation an author - many book)
 
 ## Running locally
 
-Set up Python environment:
+Set up Python environment with [Poetry](https://python-poetry.org/):
 
 ```shell
-$ pipenv install
+poetry install
+cp .env.example .env  # adjust secrets as needed
 ```
-
-To create a virtual environment you just execute the `$ pipenv shell`.
 
 Run a development server:
 
 ```shell
-$ FLASK RUN
+poetry run flask --app book_manager --debug run
 ```
 
-Runs tests:
+Run the test suite:
 
 ```shell
-$ pipenv run python -m pytest tests/test_api.py::TestApi
+poetry run pytest
 ```
 
-Play with API
+## ✨ Play with API
 
-* Open http://127.0.0.1:5000/swagger-ui in your favorit browser
-* /auth 
-   * Get un JWT token for the protected endpoint
+* Open http://127.0.0.1:5000/swagger-ui in your favorite browser
+* /auth/login 
+   * Get un JWT token (access_token) for the protected endpoint {"username":"admin","password":"secret"} 
 * /authors with a valid JWT token for POST / PUT / DELETE
    * PUT (need a valid etag in the If-Match HTTP request header)
    * DELETE (need a valid etag and delete cascade books)  
@@ -53,3 +52,20 @@ Play with API
    * DELETE (need a valid etag)
 
 Have Fun.
+
+## 🧹 Code Style & Linting
+
+Install the formatting and linting tools with Poetry:
+
+```shell
+poetry add --group dev black flake8
+```
+
+Run them locally before committing:
+
+```shell
+poetry run black .
+poetry run flake8 .
+```
+
+Both tools respect settings defined in `pyproject.toml`: max line length is 100 and Flake8 ignores `E203` and `W503` to align with Black's formatting. Keep your virtual environment up to date, run Black to auto-format, then use Flake8 to catch issues Black does not cover (imports, unused code, complexity). Running both ensures consistent style across contributors and keeps the CI lint checks green.

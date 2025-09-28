@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "book-manager"
+version = "1.1.0"
+description = "Flask-Smorest example book manager"
+authors = ["picsouds <picsouds@example.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "book_manager" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^3.1.0"
+flask-smorest = "^0.46.0"
+marshmallow = "^4.0.0"
+sqlalchemy = "^2.0.0"
+flask-sqlalchemy = "^3.1.1"
+sqlalchemy-utils = "^0.42.0"
+flask-jwt-extended = "^4.7.0"
+flask-wtf = "^1.2.1"
+python-dotenv = "^1.0.1"
+marshmallow-sqlalchemy = "^1.4.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.0"
+pytest-cov = "^5.0.0"
+ruff = "^0.5.0"
+pre-commit = "^3.7.0"
+setuptools = "^80.9.0"
+black = "^25.9.0"
+flake8 = "^7.3.0"
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 100

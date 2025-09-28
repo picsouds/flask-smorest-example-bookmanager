@@ -6,5 +6,5 @@ jwt = JWTManager()
 
 
 def init_app(app):
-    """Initialize JWT """
+    """Initialize JWT"""
     jwt.init_app(app)

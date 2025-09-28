@@ -1,13 +1,12 @@
 import marshmallow as mar
 from marshmallow import EXCLUDE
 from marshmallow.validate import Length
-from marshmallow_sqlalchemy import field_for
+from marshmallow_sqlalchemy import field_for, SQLAlchemySchema
 
-from book_manager.extensions.database import ma
 from book_manager.models import Book, Author
 
 
-class BookSchema(ma.SQLAlchemySchema):
+class BookSchema(SQLAlchemySchema):
     class Meta:
         model = Book
         ordered = True
@@ -22,9 +21,7 @@ class BookSchema(ma.SQLAlchemySchema):
 
     def update(self, obj, data):
         """Update object nullifying missing data"""
-        loadable_fields = [
-            k for k, v in self.fields.items() if not v.dump_only
-        ]
+        loadable_fields = [k for k, v in self.fields.items() if not v.dump_only]
         for name in loadable_fields:
             setattr(obj, name, data.get(name))
 
@@ -38,7 +35,7 @@ class BookQueryArgsSchema(mar.Schema):
     author_id = mar.fields.UUID()
 
 
-class AuthorSchema(ma.SQLAlchemySchema):
+class AuthorSchema(SQLAlchemySchema):
     class Meta:
         model = Author
         ordered = True
@@ -54,9 +51,7 @@ class AuthorSchema(ma.SQLAlchemySchema):
 
     def update(self, obj, data):
         """Update object nullifying missing data"""
-        loadable_fields = [
-            k for k, v in self.fields.items() if not v.dump_only
-        ]
+        loadable_fields = [k for k, v in self.fields.items() if not v.dump_only]
         for name in loadable_fields:
             setattr(obj, name, data.get(name))
 

@@ -6,5 +6,5 @@ csrf = CSRFProtect()
 
 
 def init_app(app):
-    """Initialize JWT """
+    """Initialize JWT"""
     csrf.init_app(app)
