@@ -10,9 +10,9 @@ Widely inspired by https://github.com/lafrech/flask-smorest-sqlalchemy-example
 ## Packages
 
 * Flask 3.1
-* flask-smorest 0.46 with Marshmallow 4
-* Flask-SQLAlchemy 3 + SQLAlchemy 2.0
-* flask-jwt-extended 4.7 
+* flask-smorest 0.46
+* flask-sqlalchemy 3.1 / sqlalchemy 2.0 / marshmallow-sqlalchemy 1.4
+* flask-jwt-extended 4.7
 
 ## Database
 
