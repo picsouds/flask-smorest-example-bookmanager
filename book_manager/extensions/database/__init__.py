@@ -2,8 +2,7 @@
 
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy(session_options={"expire_on_commit": False})
-
+db = SQLAlchemy()
 
 def init_app(app):
     """Initialize relational database extension"""

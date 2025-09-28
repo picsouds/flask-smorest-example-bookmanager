@@ -13,7 +13,6 @@ def app():
         config_overrides={
             "TESTING": True,
             "SQLALCHEMY_DATABASE_URI": "sqlite+pysqlite:///:memory:",
-            "DATABASE_URL": "sqlite+pysqlite:///:memory:",
             "SQLALCHEMY_ENGINE_OPTIONS": {
                 "connect_args": {"check_same_thread": False},
                 "poolclass": StaticPool,

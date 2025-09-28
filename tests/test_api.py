@@ -1,4 +1,5 @@
 """API tests"""
+
 # pylint: disable=invalid-name
 import uuid
 import datetime as dt
