@@ -21,9 +21,7 @@ class BookSchema(SQLAlchemySchema):
 
     def update(self, obj, data):
         """Update object nullifying missing data"""
-        loadable_fields = [
-            k for k, v in self.fields.items() if not v.dump_only
-        ]
+        loadable_fields = [k for k, v in self.fields.items() if not v.dump_only]
         for name in loadable_fields:
             setattr(obj, name, data.get(name))
 
@@ -53,9 +51,7 @@ class AuthorSchema(SQLAlchemySchema):
 
     def update(self, obj, data):
         """Update object nullifying missing data"""
-        loadable_fields = [
-            k for k, v in self.fields.items() if not v.dump_only
-        ]
+        loadable_fields = [k for k, v in self.fields.items() if not v.dump_only]
         for name in loadable_fields:
             setattr(obj, name, data.get(name))
 

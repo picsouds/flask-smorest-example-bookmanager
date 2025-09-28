@@ -48,7 +48,7 @@ class DefaultConfig:
     }
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
+    SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "app.db")
     SQLALCHEMY_ECHO = True
 
     #  if you feel specifying the order is important anyway.
