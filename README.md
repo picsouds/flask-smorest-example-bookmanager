@@ -42,8 +42,8 @@ poetry run pytest
 Play with API
 
 * Open http://127.0.0.1:5000/swagger-ui in your favorit browser
-* /auth 
-   * Get un JWT token for the protected endpoint
+* /auth/login 
+   * Get un JWT token (access_token) for the protected endpoint {"username":"admin","password":"secret"} 
 * /authors with a valid JWT token for POST / PUT / DELETE
    * PUT (need a valid etag in the If-Match HTTP request header)
    * DELETE (need a valid etag and delete cascade books)  

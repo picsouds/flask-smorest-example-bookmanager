@@ -1,14 +1,13 @@
 """API tests"""
 # pylint: disable=invalid-name
-import secrets
-import string
 import uuid
 import datetime as dt
 
 DUMMY_ID = str(uuid.UUID('00000000-0000-0000-0000-000000000000'))
 AUTHORS_URL = '/authors/'
 BOOKS_URL = '/books/'
-AUTH_URL = '/auth/'
+AUTH_LOGIN_URL = '/auth/login'
+AUTH_ME_URL = '/auth/me'
 
 
 class TestApi:
@@ -20,12 +19,23 @@ class TestApi:
 
     def test_login_jwt(self, test_client):
         """Login for JWT token"""
-        alphabet = string.ascii_letters + string.digits
-        password = ''.join(secrets.choice(alphabet) for i in range(8))
-        ret = test_client.post(AUTH_URL, query_string={'user': 'toto', 'password': password})
-        ret_val = ret.json
+        ret = test_client.post(
+            AUTH_LOGIN_URL,
+            json={'username': 'admin', 'password': 'secret'}
+        )
         assert ret.status_code == 200
+        ret_val = ret.json
         TestApi.jwt_token = ret_val.pop('access_token')
+        assert 'refresh_token' in ret_val
+
+    def test_auth_me(self, test_client):
+        """Authenticated identity reflects login user"""
+        headers_jwt = {
+            'Authorization': 'Bearer {}'.format(TestApi.jwt_token)
+        }
+        ret = test_client.get(AUTH_ME_URL, headers=headers_jwt)
+        assert ret.status_code == 200
+        assert ret.json == {'identity': 'admin'}
 
     def test_authors_url(self, test_client):
         """GET AUTHORS_URL """

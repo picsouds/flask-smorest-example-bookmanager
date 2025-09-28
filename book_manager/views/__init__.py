@@ -2,16 +2,16 @@
 
 from . import books
 from . import authors
-from . import auth
+from .auth.resources import blp as AuthBlp
 
 MODULES = (
-    auth,
     authors,
-    books
+    books,
 )
 
 
 def register_blueprints(api):
     """Initialize application with all modules"""
+    api.register_blueprint(AuthBlp)
     for module in MODULES:
         api.register_blueprint(module.blp)

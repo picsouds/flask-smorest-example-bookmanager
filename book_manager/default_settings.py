@@ -20,17 +20,25 @@ class DefaultConfig:
     OPENAPI_SWAGGER_UI_URL = "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.14/"
 
     API_SPEC_OPTIONS = {
-        'info': {'description': 'This is a sample server for the awesome [flask_smorest]('
-                                'https://flask-smorest.readthedocs.io/en/latest/).',
-                 'termsOfService': 'http://helloreverb.com/terms/',
-                 'contact' : {
-                     'email': 'test@swagger.io'
-                 },
-                 'license': {
-                     'name': 'MIT License',
-                     'url': 'https://fr.wikipedia.org/wiki/Licence_MIT'
-                 }
-                 }
+        "info": {
+            "description": "This is a sample server for the awesome [flask_smorest](https://flask-smorest.readthedocs.io/en/latest/).",
+            "termsOfService": "http://helloreverb.com/terms/",
+            "contact": {"email": "test@swagger.io"},
+            "license": {
+                "name": "MIT License",
+                "url": "https://fr.wikipedia.org/wiki/Licence_MIT",
+            },
+        },
+        "components": {
+            "securitySchemes": {
+                "bearerAuth": {
+                    "type": "http",
+                    "scheme": "bearer",
+                    "bearerFormat": "JWT",
+                }
+            }
+        },
+        "security": [{"bearerAuth": []}],
     }
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
