@@ -12,12 +12,7 @@ from book_manager.extensions.database import db
 from book_manager.models import Book
 from book_manager.models.schema import BookQueryArgsSchema, BookSchema
 
-blp = Blueprint(
-    'Books',
-    __name__,
-    url_prefix='/books',
-    description="Opérations sur les livres"
-)
+blp = Blueprint("Books", __name__, url_prefix="/books", description="Opérations sur les livres")
 
 
 def _get_book_or_404(item_id: UUID) -> Book:
@@ -28,11 +23,12 @@ def _get_book_or_404(item_id: UUID) -> Book:
     return instance
 
 
-@blp.route('/')
+@blp.route("/")
 class Books(MethodView):
+    """Collection-level operations for ``Book`` resources."""
 
     @blp.etag
-    @blp.arguments(BookQueryArgsSchema, location='query')
+    @blp.arguments(BookQueryArgsSchema, location="query")
     @blp.response(200, BookSchema(many=True))
     @blp.paginate(SQLCursorPage)
     def get(self, args):
@@ -52,7 +48,11 @@ class Books(MethodView):
             db.session.commit()
         except IntegrityError as e:
             db.session.rollback()
-            abort(400, message=e.__class__.__name__, errors="author_id {} not found".format(item.author_id))
+            abort(
+                400,
+                message=e.__class__.__name__,
+                errors="author_id {} not found".format(item.author_id),
+            )
         except SQLAlchemyError as e:
             db.session.rollback()
             message = [str(x) for x in e.args]
@@ -61,7 +61,7 @@ class Books(MethodView):
         return item
 
 
-@blp.route('/<uuid:item_id>')
+@blp.route("/<uuid:item_id>")
 class BooksById(MethodView):
 
     @blp.etag
@@ -73,7 +73,7 @@ class BooksById(MethodView):
     @blp.etag
     @blp.arguments(BookSchema)
     @blp.response(200, BookSchema)
-    @blp.doc(parameters=[{'name': 'If-Match', 'in': 'header', 'required': 'true'}])
+    @blp.doc(parameters=[{"name": "If-Match", "in": "header", "required": "true"}])
     @blp.doc(security=[{"bearerAuth": []}])
     @jwt_required()
     def put(self, new_item, item_id):
@@ -86,7 +86,11 @@ class BooksById(MethodView):
             db.session.commit()
         except IntegrityError as e:
             db.session.rollback()
-            abort(400, message=e.__class__.__name__, errors="author_id {} not found".format(new_item['author_id']))
+            abort(
+                400,
+                message=e.__class__.__name__,
+                errors="author_id {} not found".format(new_item["author_id"]),
+            )
         except SQLAlchemyError as e:
             db.session.rollback()
             message = [str(x) for x in e.args]
@@ -96,7 +100,7 @@ class BooksById(MethodView):
 
     @blp.etag
     @blp.response(204)
-    @blp.doc(parameters=[{'name': 'If-Match', 'in': 'header', 'required': 'true'}])
+    @blp.doc(parameters=[{"name": "If-Match", "in": "header", "required": "true"}])
     @blp.doc(security=[{"bearerAuth": []}])
     @jwt_required()
     def delete(self, item_id):

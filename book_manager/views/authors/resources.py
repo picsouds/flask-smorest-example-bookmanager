@@ -12,10 +12,7 @@ from book_manager.models import Author, Book
 from book_manager.models.schema import AuthorQueryArgsSchema, AuthorSchema
 
 blp = Blueprint(
-    'Authors',
-    __name__,
-    url_prefix='/authors',
-    description="Operations sur les auteurs"
+    "Authors", __name__, url_prefix="/authors", description="Operations sur les auteurs"
 )
 
 
@@ -27,23 +24,26 @@ def _get_author_or_404(item_id: UUID) -> Author:
     return instance
 
 
-@blp.route('/')
+@blp.route("/")
 class Authors(MethodView):
+    """Collection-level operations for ``Author`` resources."""
 
     @blp.etag
-    @blp.arguments(AuthorQueryArgsSchema, location='query')
+    @blp.arguments(AuthorQueryArgsSchema, location="query")
     @blp.response(200, AuthorSchema(many=True))
     @blp.paginate(SQLCursorPage)
     def get(self, args):
         """Liste des auteurs"""
-        book_id = args.pop('book_id', None)
+        book_id = args.pop("book_id", None)
         ret = Author.query.filter_by(**args)
         if book_id is not None:
             ret = ret.join(Author.books).filter(Book.id == book_id)
         return ret
 
     @blp.etag
-    @blp.arguments(AuthorSchema, example=dict(first_name="John", last_name="Doe", birth_date="1900-01-01"))
+    @blp.arguments(
+        AuthorSchema, example=dict(first_name="John", last_name="Doe", birth_date="1900-01-01")
+    )
     @blp.response(201, AuthorSchema)
     @blp.doc(security=[{"bearerAuth": []}])
     @jwt_required()
@@ -59,7 +59,7 @@ class Authors(MethodView):
         return item
 
 
-@blp.route('/<uuid:item_id>')
+@blp.route("/<uuid:item_id>")
 class AuthorsById(MethodView):
 
     @blp.etag
@@ -71,7 +71,7 @@ class AuthorsById(MethodView):
     @blp.etag
     @blp.arguments(AuthorSchema)
     @blp.response(200, AuthorSchema)
-    @blp.doc(parameters=[{'name': 'If-Match', 'in': 'header', 'required': 'true'}])
+    @blp.doc(parameters=[{"name": "If-Match", "in": "header", "required": "true"}])
     @blp.doc(security=[{"bearerAuth": []}])
     @jwt_required()
     def put(self, new_item, item_id):
@@ -85,7 +85,7 @@ class AuthorsById(MethodView):
 
     @blp.etag
     @blp.response(204)
-    @blp.doc(parameters=[{'name': 'If-Match', 'in': 'header', 'required': 'true'}])
+    @blp.doc(parameters=[{"name": "If-Match", "in": "header", "required": "true"}])
     @blp.doc(security=[{"bearerAuth": []}])
     @jwt_required()
     def delete(self, item_id):

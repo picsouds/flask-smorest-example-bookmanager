@@ -1,14 +1,20 @@
+from typing import MutableMapping
+
 from marshmallow import EXCLUDE, Schema, fields
+from marshmallow.fields import Field
 from marshmallow.validate import Length
 
 
 class NullMissingMixin:
-    """Helper mixin to normalise missing field updates."""
+    """Helper mixin to normalise missing field updates for models."""
+
+    fields: MutableMapping[str, Field]
 
     def update(self, obj, data):
         loadable_fields = [name for name, field in self.fields.items() if not field.dump_only]
         for name in loadable_fields:
-            setattr(obj, name, data.get(name))
+            if name in data:
+                setattr(obj, name, data[name])
 
 
 class BookSchema(NullMissingMixin, Schema):

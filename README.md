@@ -39,7 +39,7 @@ Run the test suite:
 poetry run pytest
 ```
 
-Play with API
+## ✨ Play with API
 
 * Open http://127.0.0.1:5000/swagger-ui in your favorite browser
 * /auth/login 
@@ -52,3 +52,20 @@ Play with API
    * DELETE (need a valid etag)
 
 Have Fun.
+
+## 🧹 Code Style & Linting
+
+Install the formatting and linting tools with Poetry:
+
+```shell
+poetry add --group dev black flake8
+```
+
+Run them locally before committing:
+
+```shell
+poetry run black .
+poetry run flake8 .
+```
+
+Both tools respect settings defined in `pyproject.toml`: max line length is 100 and Flake8 ignores `E203` and `W503` to align with Black's formatting. Keep your virtual environment up to date, run Black to auto-format, then use Flake8 to catch issues Black does not cover (imports, unused code, complexity). Running both ensures consistent style across contributors and keeps the CI lint checks green.

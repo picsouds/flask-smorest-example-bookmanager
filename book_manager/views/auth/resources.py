@@ -1,10 +1,14 @@
+"""Authentication-related REST resources."""
+
 from http import HTTPStatus
 
 from flask.views import MethodView
 from flask_smorest import Blueprint
 from flask_jwt_extended import (
-    create_access_token, create_refresh_token,
-    jwt_required, get_jwt_identity
+    create_access_token,
+    create_refresh_token,
+    jwt_required,
+    get_jwt_identity,
 )
 from marshmallow import Schema, fields
 

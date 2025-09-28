@@ -1,28 +1,25 @@
-from pathlib import Path
-import sys
+"""Pytest fixtures supporting Book Manager integration tests."""
 
 import pytest
 from sqlalchemy.pool import StaticPool
-
-sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from book_manager import create_app
 from book_manager.extensions.database import db
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def app():
     application = create_app(
         config_overrides={
-            'TESTING': True,
-            'SQLALCHEMY_DATABASE_URI': 'sqlite+pysqlite:///:memory:',
-            'DATABASE_URL': 'sqlite+pysqlite:///:memory:',
-            'SQLALCHEMY_ENGINE_OPTIONS': {
-                'connect_args': {'check_same_thread': False},
-                'poolclass': StaticPool,
+            "TESTING": True,
+            "SQLALCHEMY_DATABASE_URI": "sqlite+pysqlite:///:memory:",
+            "DATABASE_URL": "sqlite+pysqlite:///:memory:",
+            "SQLALCHEMY_ENGINE_OPTIONS": {
+                "connect_args": {"check_same_thread": False},
+                "poolclass": StaticPool,
             },
-            'JWT_SECRET_KEY': 'test-secret',
-            'SECRET_KEY': 'test-secret',
+            "JWT_SECRET_KEY": "test-secret",
+            "SECRET_KEY": "test-secret",
         }
     )
 
@@ -35,7 +32,7 @@ def app():
     ctx.pop()
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def test_client(app):
     with app.test_client() as testing_client:
         yield testing_client
