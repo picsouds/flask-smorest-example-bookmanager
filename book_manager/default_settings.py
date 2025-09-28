@@ -21,7 +21,7 @@ class DefaultConfig:
 
     API_SPEC_OPTIONS = {
         "info": {
-            "description": "This is a sample server for the awesome [flask_smorest](https://flask-smorest.readthedocs.io/en/latest/).",
+            "description": "This is a sample server for the awesome [flask_smorest](https://flask-smorest.readthedocs.io/en/latest/)",
             "termsOfService": "http://helloreverb.com/terms/",
             "contact": {"email": "test@swagger.io"},
             "license": {

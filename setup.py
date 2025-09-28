@@ -30,7 +30,7 @@ setup(
         'flask-smorest>=0.46',
         'marshmallow>=4.0',
         'sqlalchemy>=2.0',
-        'sqlalchemy-utils>=0.41',
+        'sqlalchemy-utils>=0.42',
         'flask-sqlalchemy>=3.1',
         'flask-jwt-extended>=4.7',
         'Flask-WTF>=1.2'

@@ -18,6 +18,7 @@ def create_app(
     """Create and configure the Flask application."""
 
     app = Flask(__name__, **flask_kwargs)
+    app.json.sort_keys = False
 
     if config_object is None:
         config_object = DefaultConfig
@@ -29,10 +30,10 @@ def create_app(
 
     # Override config with optional settings file from environment
     app.config.from_envvar('FLASK_SETTINGS_FILE', silent=True)
-
     app.config.setdefault("JWT_SECRET_KEY", "dev-secret-change-me")
     app.config.setdefault("JWT_ACCESS_TOKEN_EXPIRES", timedelta(seconds=3600))
     app.config.setdefault("JWT_REFRESH_TOKEN_EXPIRES", timedelta(seconds=604800))
+
     JWTManager(app)
 
     api = extensions.create_api(app)

@@ -5,7 +5,7 @@
 Flask application example using the awesome [flask-smorest: Flask/Marshmallow-based REST API framework](https://flask-smorest.readthedocs.io/en/latest/)    
 Widely inspired by https://github.com/lafrech/flask-smorest-sqlalchemy-example
 
-![Capture-d-cran-du-2020-08-03-20-28-16.png](https://i.postimg.cc/nrH1SHZP/Capture-d-cran-du-2020-08-03-20-28-16.png)
+![Capture-d-cran-du-2025-09-28.png](https://i.postimg.cc/Ghxmv4KD/Capture-d-cran-du-2025-09-28.png)
 
 ## Packages
 
@@ -41,7 +41,7 @@ poetry run pytest
 
 Play with API
 
-* Open http://127.0.0.1:5000/swagger-ui in your favorit browser
+* Open http://127.0.0.1:5000/swagger-ui in your favorite browser
 * /auth/login 
    * Get un JWT token (access_token) for the protected endpoint {"username":"admin","password":"secret"} 
 * /authors with a valid JWT token for POST / PUT / DELETE
