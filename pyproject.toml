@@ -11,7 +11,7 @@ packages = [{ include = "book_manager" }]
 python = "^3.10"
 flask = "^3.1.0"
 flask-smorest = "^0.46.0"
-marshmallow = "^4.0.0"
+marshmallow = "^4.1.2"
 sqlalchemy = "^2.0.0"
 flask-sqlalchemy = "^3.1.1"
 sqlalchemy-utils = "^0.42.0"
